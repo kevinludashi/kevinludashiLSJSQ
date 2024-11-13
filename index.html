@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录计算器 - Kevin鲁大师</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #767676; /* 网页背景 */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333; /* 更改字体颜色为深色 */
+            overflow: hidden; /* 防止页面溢出 */
+        }
+
+        .calculator {
+            background-color: #2c2c2c;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 100%;
+            max-width: 900px;  /* 限制最大宽度为 900px */
+            min-width: 280px;  /* 限制最小宽度 */
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .calculator h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            font-size: 24px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            text-align: right;
+            margin-bottom: 20px;
+            background-color: #333;
+            color: white;
+            transition: background-color 0.3s;
+            box-sizing: border-box;
+        }
+
+        input:focus {
+            background-color: #444;
+            outline: none;
+        }
+
+        button {
+            width: 60px;
+            height: 60px;
+            margin: 8px;
+            font-size: 20px;
+            border-radius: 50%;
+            border: none;
+            background-color: #3e3e3e;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #5c5c5c;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            background-color: #1f1f1f;
+            transform: scale(0.98);
+        }
+
+        .footer {
+            font-size: 13px;
+            margin-top: 20px;
+            color: #bfbfbf;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Additional Button Styling for Functional Buttons */
+        .button-clear {
+            background-color: #d9534f;
+        }
+
+        .button-equal {
+            background-color: #5bc0de;
+        }
+
+        /* Grid Layout for Buttons */
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* History Section */
+        .history {
+            margin-top: 20px;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #fff;
+        }
+
+        .history-item {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .calculator {
+            max-width: 100%;
+            max-height: 100%;
+            padding: 20px;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 480px) {
+            input {
+                font-size: 20px;
+                padding: 12px;
+            }
+
+            button {
+                width: 50px;
+                height: 50px;
+                font-size: 18px;
+            }
+
+            .calculator {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .button-group {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calculator {
+                width: 90%;
+                padding: 20px;
+            }
+
+            input {
+                font-size: 22px;
+                padding: 14px;
+            }
+
+            button {
+                width: 55px;
+                height: 55px;
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h1>历史记录计算器</h1>
+        <input id="display" type="text" disabled placeholder="0">
+
+        <!-- Button rows using grid layout -->
+        <div class="button-group">
+            <button class="button-clear" onclick="clearDisplay()">×</button>
+            <button onclick="appendToDisplay('(')">(</button>
+            <button onclick="appendToDisplay(')')">)</button>
+            <button onclick="deleteLastCharacter()">⌫</button>
+
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="appendToDisplay('/')">/</button>
+
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="appendToDisplay('*')">*</button>
+
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="appendToDisplay('-')">-</button>
+
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button class="button-equal" onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('+')">+</button>
+        </div>
+
+        <!-- History Section -->
+        <div class="history">
+            <h2>历史记录</h2>
+            <div id="history-list"></div>
+            <button onclick="clearAllHistory()">×</button>
+            <button onclick="clearLastHistory()">←</button>
+            <button onclick="undoLastCalculation()">○</button>
+        </div>
+
+        <div class="footer">
+            <p>制作人：Kevin鲁大师 【仅供个人学习交流  请勿商业用途】</p>
+        </div>
+    </div>
+
+    <script>
+        let history = [];
+        let previousCalculation = null; // 用于存储上一个计算结果，供撤销使用
+
+        // 公用显示更新函数
+        function updateDisplay(value = '') {
+            const display = document.getElementById('display');
+            display.value = value || '0';
+        }
+
+        // 将按钮的值添加到显示框
+        function appendToDisplay(value) {
+            const display = document.getElementById('display');
+            display.value = (display.value === "0") ? value : display.value + value;
+        }
+
+        // 清空显示框
+        function clearDisplay() {
+            updateDisplay();
+        }
+
+        // 计算结果
+        function calculateResult() {
+            const display = document.getElementById('display');
+            let expression = display.value;
+            try {
+                // 保存上一个计算结果
+                previousCalculation = { expression, result: eval(expression) };
+
+                // 替换数学函数
+                expression = expression.replace('sqrt(', 'Math.sqrt(');
+                expression = expression.replace(/sin\(([^)]+)\)/g, 'Math.sin(Math.PI/180*$1)');
+                expression = expression.replace(/cos\(([^)]+)\)/g, 'Math.cos(Math.PI/180*$1)');
+                expression = expression.replace(/tan\(([^)]+)\)/g, 'Math.tan(Math.PI/180*$1)');
+                expression = expression.replace(/log\(([^)]+)\)/g, 'Math.log10($1)');
+                expression = expression.replace(/\^/g, '**');
+                
+                const result = eval(expression);
+                updateDisplay(result);
+                saveHistory(expression, result);
+            } catch (error) {
+                updateDisplay('错误');
+            }
+        }
+
+        // 保存历史记录
+        function saveHistory(expression, result) {
+            if (history.length >= 20) history.shift();
+            history.push({ expression, result });
+            updateHistory();
+        }
+
+        // 更新历史记录显示
+        function updateHistory() {
+            const historyList = document.getElementById('history-list');
+            historyList.innerHTML = history.map(item => `<div class="history-item">${item.expression} = ${item.result}</div>`).join('');
+        }
+
+        // 清空历史记录
+        function clearAllHistory() {
+            history = [];
+            updateHistory();
+        }
+
+        // 删除最后一条历史记录
+        function clearLastHistory() {
+            history.pop();
+            updateHistory();
+        }
+
+        // 撤销上一个计算
+        function undoLastCalculation() {
+            if (previousCalculation) {
+                updateDisplay(previousCalculation.result);
+                saveHistory(previousCalculation.expression, previousCalculation.result);
+            }
+        }
+
+        // 删除显示框最后一个字符
+        function deleteLastCharacter() {
+            const display = document.getElementById('display');
+            display.value = display.value.slice(0, -1) || '0';
+        }
+    </script>
+
+</body>
+</html>
