@@ -88,6 +88,9 @@
             font-size: 13px; /* 设置页脚文字的大小 */
             margin-top: 20px; /* 设置页脚的上边距 */
             color: #bfbfbf; /* 设置页脚文字的颜色 */
+            position: relative; /* 确保它在布局中显示 */
+            z-index: 10; /* 确保它在其他内容上方 */
+            padding-bottom: 20px; /* 给底部留出空间 */
         }
 
         .footer p {
@@ -102,7 +105,7 @@
         .button-equal {
             background-color: #5bc0de; /* 等于按钮的背景颜色 */
             border-radius: 20px; /* 圆角长方形 */
-            width: 180px; /* 宽度为3个普通按钮的宽度 */
+            width: 270px; /* 宽度为3个普通按钮的宽度 */
             height: 60px; /* 高度与普通按钮相同 */
             grid-column: span 3; /* 横跨3个格子 */
         }
