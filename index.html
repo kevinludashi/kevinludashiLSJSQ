@@ -1,182 +1,182 @@
 <!DOCTYPE html>
-<html lang="zh"> <!-- 定义文档类型为HTML，并设置语言为中文 -->
+<html lang="zh">
 <head>
-    <meta charset="UTF-8"> <!-- 设置字符编码为UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 设置响应式设计，适应各种设备的宽度 -->
-    <title>历史记录计算器 - Kevin鲁大师</title> <!-- 网页标题 -->
-
+    <!-- 设置字符集为UTF-8，确保支持中文字符 -->
+    <meta charset="UTF-8">
+    <!-- 视口设置，适应手机屏幕大小 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 网页标题 -->
+    <title>历史记录计算器 - Kevin鲁大师</title>
     <style>
-        /* Global Styles */
+        /* 设置全局样式 */
         body {
-            font-family: 'Roboto', sans-serif; /* 设置字体为Roboto */
-            background-color: #767676; /* 设置背景色 */
-            margin: 0; /* 去除默认边距 */
-            padding: 0; /* 去除默认内边距 */
+            font-family: 'Roboto', sans-serif; /* 使用Roboto字体 */
+            background-color: #767676; /* 背景颜色 */
+            margin: 0; /* 移除默认外边距 */
+            padding: 0; /* 移除默认内边距 */
             height: 100vh; /* 设置视口高度为100% */
-            display: flex; /* 使用Flexbox布局 */
-            justify-content: center; /* 水平居中内容 */
-            align-items: center; /* 垂直居中内容 */
-            color: #333; /* 设置字体颜色 */
-            overflow: hidden; /* 防止页面内容溢出 */
+            display: flex; /* 使用flexbox布局 */
+            justify-content: center; /* 水平居中 */
+            align-items: center; /* 垂直居中 */
+            color: #333; /* 字体颜色 */
+            overflow: hidden; /* 防止页面滚动 */
         }
 
         .calculator {
-            background-color: #2c2c2c; /* 设置计算器背景色 */
-            border-radius: 20px; /* 设置圆角 */
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* 设置阴影效果 */
+            background-color: #2c2c2c; /* 计算器背景颜色 */
+            border-radius: 20px; /* 圆角 */
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3); /* 投影效果 */
             padding: 20px; /* 内边距 */
             width: 100%; /* 宽度为100% */
-            max-width: 900px; /* 最大宽度为900px */
-            min-width: 280px; /* 最小宽度为280px */
+            max-width: 900px; /* 最大宽度900px */
+            min-width: 280px; /* 最小宽度280px */
             text-align: center; /* 文本居中 */
-            box-sizing: border-box; /* 包括内边距和边框在内的宽高计算方式 */
-            margin-top: 5px; /* 顶部边距 */
+            box-sizing: border-box; /* 盒模型 */
+            margin-top: 5px; /* 顶部外边距 */
         }
 
         /* 输入框样式 */
         textarea {
-            width: 100%; /* 输入框宽度占满父元素 */
+            width: 100%; /* 输入框宽度为100% */
             padding: 15px; /* 内边距 */
             font-size: 24px; /* 字体大小 */
             border-radius: 10px; /* 圆角 */
-            border: 1px solid #444; /* 边框颜色 */
-            text-align: right; /* 文字右对齐 */
-            margin-bottom: 20px; /* 底部边距 */
-            background-color: #333; /* 背景色 */
-            color: white; /* 字体颜色 */
-            box-sizing: border-box; /* 包括内边距和边框在内的宽高计算方式 */
-            overflow-wrap: break-word; /* 超长文本自动换行 */
-            word-wrap: break-word; /* 强制换行 */
-            word-break: break-all; /* 强制断词 */
-            white-space: pre-wrap; /* 保留空格并自动换行 */
+            border: 1px solid #444; /* 边框 */
+            text-align: right; /* 文本右对齐 */
+            margin-bottom: 20px; /* 下边距 */
+            background-color: #333; /* 背景颜色 */
+            color: white; /* 文字颜色 */
+            box-sizing: border-box; /* 盒模型 */
+            overflow-wrap: break-word; /* 超出时换行 */
+            word-wrap: break-word; /* 超出时换行 */
+            word-break: break-all; /* 单词内部换行 */
+            white-space: pre-wrap; /* 保留空格和换行 */
             min-height: 50px; /* 最小高度 */
-            resize: none; /* 禁止调整大小 */
-            height: auto; /* 高度自适应 */
+            resize: none; /* 禁止用户调整大小 */
+            height: auto; /* 高度自动调整 */
             max-height: 60px; /* 最大高度 */
         }
 
         textarea:focus {
-            background-color: #444; /* 聚焦时背景色变化 */
-            outline: none; /* 去除聚焦时的边框 */
+            background-color: #444; /* 获取焦点时背景颜色 */
+            outline: none; /* 去除输入框焦点时的轮廓 */
         }
 
         /* 按钮样式 */
         button {
-            width: 100%; /* 按钮宽度占满父元素 */
+            width: 100%; /* 按钮宽度为100% */
             height: 50px; /* 按钮高度 */
             font-size: 20px; /* 字体大小 */
             border-radius: 12px; /* 圆角 */
             border: none; /* 无边框 */
             color: #fff; /* 字体颜色 */
-            cursor: pointer; /* 鼠标悬停时显示手型光标 */
-            transition: transform 0.2s, background-color 0.3s ease; /* 按钮的变换效果 */
-            display: flex; /* 使用Flexbox布局 */
-            justify-content: center; /* 水平居中内容 */
-            align-items: center; /* 垂直居中内容 */
+            cursor: pointer; /* 鼠标悬停时显示为手型 */
+            transition: transform 0.2s, background-color 0.3s ease; /* 按钮过渡效果 */
+            display: flex; /* 使用flex布局 */
+            justify-content: center; /* 居中内容 */
+            align-items: center; /* 居中内容 */
         }
 
         button:hover {
-            background-color: #5c5c5c; /* 鼠标悬停时的背景色 */
-            transform: scale(1.1); /* 鼠标悬停时放大按钮 */
+            background-color: #5c5c5c; /* 悬停时背景颜色 */
+            transform: scale(1.1); /* 按钮放大 */
         }
 
         button:active {
-            background-color: #1f1f1f; /* 按钮点击时的背景色 */
-            transform: scale(0.98); /* 按钮点击时缩小 */
+            background-color: #1f1f1f; /* 按钮按下时背景颜色 */
+            transform: scale(0.98); /* 按钮缩小 */
         }
 
         .footer {
-            font-size: 13px; /* 设置字体大小 */
-            margin-top: 20px; /* 顶部边距 */
-            color: #bfbfbf; /* 字体颜色 */
+            font-size: 13px; /* 字体大小 */
+            margin-top: 20px; /* 顶部外边距 */
+            color: #bfbfbf; /* 文字颜色 */
         }
 
         .footer p {
-            margin: 0; /* 去除段落默认边距 */
+            margin: 0; /* 去除段落外边距 */
         }
 
         /* 特殊按键样式 */
         .button-clear {
-            background-color: #d9534f; /* 清除按钮背景色 */
+            background-color: #d9534f; /* 清除按钮背景颜色 */
         }
 
         .button-equal {
-            background-color: #5bc0de; /* 等号按钮背景色 */
-            grid-column: span 3; /* 让等号按钮占用3列 */
+            background-color: #5bc0de; /* 等号按钮背景颜色 */
+            grid-column: span 3; /* 跨越三列 */
         }
 
         .button-other {
-            background-color: #4E4E4E; /* 其他按钮背景色 */
+            background-color: #4E4E4E; /* 普通按钮背景颜色 */
         }
 
         .button-orange {
-            background-color: #f0ad4e; /* 橙色按钮背景色 */
+            background-color: #f0ad4e; /* 橙色按钮背景颜色 */
         }
 
         .button-backspace {
-            background-color: #e06562; /* 回退按钮背景色 */
+            background-color: #e06562; /* 回退按钮背景颜色 */
         }
 
         .button-group {
             display: grid; /* 使用网格布局 */
-            grid-template-columns: repeat(4, 1fr); /* 创建4列 */
-            gap: 10px; /* 列间距 */
-            margin-bottom: 20px; /* 底部边距 */
+            grid-template-columns: repeat(4, 1fr); /* 每行4个按钮，宽度均等 */
+            gap: 10px; /* 按钮之间的间隙 */
+            margin-bottom: 20px; /* 底部外边距 */
         }
 
         .history {
-            margin-top: 20px; /* 顶部边距 */
-            background-color: #444; /* 背景色 */
+            margin-top: 20px; /* 顶部外边距 */
+            background-color: #444; /* 历史记录背景颜色 */
             padding: 10px; /* 内边距 */
             border-radius: 10px; /* 圆角 */
             max-height: 200px; /* 最大高度 */
-            overflow-y: auto; /* 如果内容溢出，显示滚动条 */
-            color: #fff; /* 字体颜色 */
-            display: flex; /* 使用Flexbox布局 */
+            overflow-y: auto; /* 内容超出时滚动 */
+            color: #fff; /* 文字颜色 */
+            display: flex; /* 使用flex布局 */
             flex-direction: column; /* 垂直排列 */
-            align-items: center; /* 水平居中 */
-            justify-content: center; /* 垂直居中 */
+            align-items: center; /* 居中对齐 */
         }
 
         .history-item {
-            margin-bottom: 10px; /* 底部边距 */
+            margin-bottom: 10px; /* 下边距 */
             font-size: 14px; /* 字体大小 */
             text-align: center; /* 文本居中 */
         }
 
         .history-buttons {
-            display: flex; /* 使用Flexbox布局 */
-            justify-content: space-between; /* 按钮左右分布 */
-            gap: 10px; /* 按钮之间的间距 */
-            margin-top: 20px; /* 顶部边距 */
+            display: flex; /* 使用flex布局 */
+            justify-content: space-between; /* 按钮之间水平分布 */
+            gap: 10px; /* 按钮之间的间隙 */
+            margin-top: 20px; /* 顶部外边距 */
         }
 
         .history-buttons button {
-            width: 30%; /* 按钮宽度 */
+            width: 30%; /* 按钮宽度为30% */
             border-radius: 12px; /* 圆角 */
-            height: 40px; /* 高度 */
+            height: 40px; /* 按钮高度 */
             font-size: 18px; /* 字体大小 */
-            background-color: #4e4e4e; /* 背景色 */
+            background-color: #4e4e4e; /* 按钮背景颜色 */
             color: white; /* 字体颜色 */
         }
 
         .history-buttons button:hover {
-            background-color: #6e6e6e; /* 按钮悬停时的背景色 */
+            background-color: #6e6e6e; /* 悬停时背景颜色 */
         }
 
         .history-buttons button:active {
-            background-color: #333; /* 按钮点击时的背景色 */
+            background-color: #333; /* 按下时背景颜色 */
         }
     </style>
 </head>
 <body>
 
     <div class="calculator">
-        <!-- 显示区域 -->
-        <textarea id="display" disabled placeholder="0"></textarea>
+        <textarea id="display" disabled placeholder="0"></textarea> <!-- 显示屏，用于显示输入和结果 -->
 
-        <!-- 按钮区域 -->
         <div class="button-group">
+            <!-- 数字按钮和操作符按钮 -->
             <button class="button-clear" onclick="clearDisplay()">×</button>
             <button onclick="appendToDisplay('(')" class="button-orange">(</button>
             <button onclick="appendToDisplay(')')" class="button-orange">)</button>
@@ -208,41 +208,44 @@
 
         <!-- 历史记录区域 -->
         <div class="history">
-            <div id="history-list"></div> <!-- 历史记录内容 -->
+            <div id="history-list"></div> <!-- 历史记录列表 -->
         </div>
 
-        <!-- 历史记录操作按钮 -->
+        <!-- 历史记录按钮区域 -->
         <div class="history-buttons">
-            <button onclick="clearAllHistory()">×</button>
-            <button onclick="clearLastHistory()">←</button>
-            <button onclick="undoLastHistory()">○</button>
+            <button onclick="clearAllHistory()">×</button> <!-- 清空历史记录 -->
+            <button onclick="clearLastHistory()">←</button> <!-- 删除最后一条历史记录 -->
+            <button onclick="undoLastHistory()">○</button> <!-- 撤销删除 -->
         </div>
 
-        <!-- 底部版权信息 -->
+        <!-- 底部信息 -->
         <div class="footer">
-            <p>历史记录计算器2.0版 / 制作人：Kevin鲁大师 / 仅供学习交流 勿用于商业</p>
+            <p>历史记录计算器2.0版 / 制作人: Kevin鲁大师 / 仅个人学习交流 勿用于商业</p>
         </div>
     </div>
 
     <script>
-        // 历史记录和撤销栈
-        let history = [];
-        let undoStack = [];
+        let history = []; // 历史记录数组
+        let undoStack = []; // 撤销栈
 
+        // 更新显示屏内容
         function updateDisplay(value = '') {
             const display = document.getElementById('display');
-            display.value = value || '0'; // 如果没有传值，则显示0
+            display.value = value || '0'; // 如果没有值则显示"0"
         }
 
+        // 在显示屏上追加字符
         function appendToDisplay(value) {
             const display = document.getElementById('display');
-            display.value = (display.value === "0") ? value : display.value + value; // 如果显示的是0，则替换，否则追加
+            display.value = (display.value === "0") ? value : display.value + value; // 如果当前是"0"，则替换为新字符
         }
 
+        // 清空显示屏
         function clearDisplay() {
-            updateDisplay(); // 清空显示区域
+            updateDisplay(); // 清空显示
         }
 
+        // 计算表达式并显示结果
         function calculateResult() {
             const display = document.getElementById('display');
             let expression = display.value;
@@ -250,58 +253,86 @@
             // 修正百分号：将20%转换为0.2
             expression = expression.replace(/(\d+(\.\d+)?)%/g, (match, p1) => p1 / 100);
 
-            // 计算结果
             try {
-                const result = eval(expression); // 使用eval执行数学表达式
-                updateDisplay(result); // 显示计算结果
-                saveHistory(expression, result);  // 记录公式和结果到历史
+                const result = eval(expression); // 使用eval计算结果
+                updateDisplay(result); // 更新显示屏为计算结果
+                saveHistory(expression, result); // 保存历史记录
             } catch {
                 updateDisplay('错误'); // 如果发生错误，显示"错误"
             }
         }
 
+        // 保存历史记录
         function saveHistory(expression, result) {
-            history.push({ expression, result }); // 将计算公式和结果保存到历史记录
+            history.push({ expression, result }); // 保存表达式和结果
             undoStack = []; // 清空撤销栈
             updateHistory(); // 更新历史记录显示
         }
 
+        // 更新历史记录显示
         function updateHistory() {
             const historyList = document.getElementById('history-list');
             historyList.innerHTML = history.map(item => 
                 `<div class="history-item">${item.expression} = ${item.result}</div>`
-            ).join(''); // 格式化历史记录为“公式 = 结果”
+            ).join(''); // 显示每一条历史记录
         }
 
+        // 清空所有历史记录
         function clearAllHistory() {
-            history = []; // 清空历史记录
-            undoStack = []; // 清空撤销栈
-            updateHistory(); // 更新显示
+            history = [];
+            undoStack = [];
+            updateHistory();
         }
 
+        // 删除最后一条历史记录
         function clearLastHistory() {
             if (history.length > 0) {
-                undoStack.push(history.pop()); // 将最后一条历史记录放入撤销栈
-                updateHistory(); // 更新显示
+                undoStack.push(history.pop()); // 将删除的历史记录推入撤销栈
+                updateHistory();
             }
         }
 
+        // 撤销删除的历史记录
         function undoLastHistory() {
             if (undoStack.length > 0) {
-                history.push(undoStack.pop()); // 撤销删除的历史记录
-                updateHistory(); // 更新显示
+                history.push(undoStack.pop()); // 从撤销栈中恢复历史记录
+                updateHistory();
             }
         }
 
+        // 删除最后一个字符
         function deleteLastCharacter() {
             const display = document.getElementById('display');
-            display.value = display.value.slice(0, -1) || '0'; // 删除最后一个字符
+            display.value = display.value.slice(0, -1) || '0'; // 删除最后一个字符，若为空则显示"0"
         }
 
+        // 在显示屏上追加小数点
         function appendDot() {
             const display = document.getElementById('display');
-            display.value += '.'; // 在输入框中添加小数点
+            display.value += '.'; // 在显示屏末尾加小数点
         }
+
+        // 监听键盘事件
+        window.addEventListener('keydown', function(event) {
+            const key = event.key;
+
+            // 数字键和运算符映射到按钮操作
+            const buttons = {
+                '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
+                '+': '+', '-': '-', '*': '*', '/': '/', '=': '=', 'Enter': '=', 'Backspace': '⌫', '%': '%', '.': '.'
+            };
+
+            // 如果按键是数字或运算符，则执行相应操作
+            if (buttons[key]) {
+                if (key === 'Enter' || key === '=') {
+                    calculateResult(); // 如果是回车或等号，执行计算
+                } else if (key === 'Backspace') {
+                    deleteLastCharacter(); // 如果是回退键，删除最后一个字符
+                } else {
+                    appendToDisplay(buttons[key]); // 否则将按键添加到显示屏
+                }
+            }
+        });
     </script>
 </body>
 </html>
