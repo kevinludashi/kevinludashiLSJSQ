@@ -177,33 +177,33 @@
 
         <div class="button-group">
             <!-- 数字按钮和操作符按钮 -->
-            <button class="button-clear" onclick="clearDisplay()">×</button>
-            <button onclick="appendToDisplay('(')" class="button-orange">(</button>
-            <button onclick="appendToDisplay(')')" class="button-orange">)</button>
-            <button onclick="deleteLastCharacter()" class="button-backspace">⌫</button>
+            <button class="button-clear" onclick="clearDisplay()" style="font-size: 15px;">空格/归零</button>
+            <button onclick="appendToDisplay('(')" class="button-orange" style="font-size: 30px;">(</button>
+            <button onclick="appendToDisplay(')')" class="button-orange" style="font-size: 30px;">)</button>
+            <button onclick="deleteLastCharacter()" class="button-backspace">退格</button>
 
-            <button onclick="appendToDisplay('7')" class="button-other">7</button>
-            <button onclick="appendToDisplay('8')" class="button-other">8</button>
-            <button onclick="appendToDisplay('9')" class="button-other">9</button>
-            <button onclick="appendToDisplay('/')" class="button-orange">/</button>
+            <button onclick="appendToDisplay('7')" class="button-other" style="font-size: 30px;">7</button>
+            <button onclick="appendToDisplay('8')" class="button-other" style="font-size: 30px;">8</button>
+            <button onclick="appendToDisplay('9')" class="button-other" style="font-size: 30px;">9</button>
+            <button onclick="appendToDisplay('/')" class="button-orange" style="font-size: 30px;">÷</button>
 
-            <button onclick="appendToDisplay('4')" class="button-other">4</button>
-            <button onclick="appendToDisplay('5')" class="button-other">5</button>
-            <button onclick="appendToDisplay('6')" class="button-other">6</button>
-            <button onclick="appendToDisplay('*')" class="button-orange">*</button>
+            <button onclick="appendToDisplay('4')" class="button-other" style="font-size: 30px;">4</button>
+            <button onclick="appendToDisplay('5')" class="button-other" style="font-size: 30px;">5</button>
+            <button onclick="appendToDisplay('6')" class="button-other" style="font-size: 30px;">6</button>
+            <button onclick="appendToDisplay('*')" class="button-orange" style="font-size: 30px;">x</button>
 
-            <button onclick="appendToDisplay('1')" class="button-other">1</button>
-            <button onclick="appendToDisplay('2')" class="button-other">2</button>
-            <button onclick="appendToDisplay('3')" class="button-other">3</button>
-            <button onclick="appendToDisplay('-')" class="button-orange">-</button>
+            <button onclick="appendToDisplay('1')" class="button-other" style="font-size: 30px;">1</button>
+            <button onclick="appendToDisplay('2')" class="button-other" style="font-size: 30px;">2</button>
+            <button onclick="appendToDisplay('3')" class="button-other" style="font-size: 30px;">3</button>
+            <button onclick="appendToDisplay('-')" class="button-orange" style="font-size: 30px;">-</button>
 
-            <button onclick="appendToDisplay('0')" class="button-other">0</button>
-            <button onclick="appendToDisplay('00')" class="button-other">00</button>
-            <button onclick="appendDot()" class="button-orange">.</button>
-            <button onclick="appendToDisplay('+')" class="button-orange">+</button>
+            <button onclick="appendToDisplay('0')" class="button-other" style="font-size: 30px;">0</button>
+            <button onclick="appendToDisplay('00')" class="button-other" style="font-size: 30px;">00</button>
+            <button onclick="appendDot()" class="button-orange" style="font-size: 30px;">.</button>
+            <button onclick="appendToDisplay('+')" class="button-orange" style="font-size: 30px;">+</button>
 
-            <button onclick="appendToDisplay('%')" class="button-other">%</button>
-            <button class="button-equal" onclick="calculateResult()">=</button>
+            <button onclick="appendToDisplay('%')" class="button-other" style="font-size: 30px;">%</button>
+            <button class="button-equal" onclick="calculateResult()" style="font-size: 30px;">=</button>
         </div>
 
         <!-- 历史记录区域 -->
@@ -213,9 +213,9 @@
 
         <!-- 历史记录按钮区域 -->
         <div class="history-buttons">
-            <button onclick="clearAllHistory()">×</button> <!-- 清空历史记录 -->
-            <button onclick="clearLastHistory()">←</button> <!-- 删除最后一条历史记录 -->
-            <button onclick="undoLastHistory()">○</button> <!-- 撤销删除 -->
+            <button onclick="clearAllHistory()" style="font-size: 15px;">清空</button> <!-- 清空历史记录 -->
+            <button onclick="clearLastHistory()" style="font-size: 15px;">删除</button> <!-- 删除最后一条历史记录 -->
+            <button onclick="undoLastHistory()" style="font-size: 15px;">返回</button> <!-- 撤销删除 -->
         </div>
 
         <!-- 底部信息 -->
@@ -319,7 +319,8 @@
             // 数字键和运算符映射到按钮操作
             const buttons = {
                 '0': '0', '1': '1', '2': '2', '3': '3', '4': '4', '5': '5', '6': '6', '7': '7', '8': '8', '9': '9',
-                '+': '+', '-': '-', '*': '*', '/': '/', '=': '=', 'Enter': '=', 'Backspace': '⌫', '%': '%', '.': '.'
+                '+': '+', '-': '-', '*': '*', '/': '/', '=': '=', 'Enter': '=', 'Backspace': '⌫', '%': '%', '.': '.',
+                ' ': ' '
             };
 
             // 如果按键是数字或运算符，则执行相应操作
@@ -328,6 +329,8 @@
                     calculateResult(); // 如果是回车或等号，执行计算
                 } else if (key === 'Backspace') {
                     deleteLastCharacter(); // 如果是回退键，删除最后一个字符
+                } else if (key === ' ') {
+                    clearDisplay(); // 如果是空格键，清空显示屏
                 } else {
                     appendToDisplay(buttons[key]); // 否则将按键添加到显示屏
                 }
